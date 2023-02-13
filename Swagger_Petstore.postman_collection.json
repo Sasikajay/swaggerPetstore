@@ -14,6 +14,103 @@
 					"name": "{petId}",
 					"item": [
 						{
+							"name": "Add a new pet to the store",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"pm.environment.set(\"petNameId\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "special-key",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "api_key",
+											"type": "string"
+										},
+										{
+											"key": "in",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"amila\",\n  \"photoUrls\": [\n    \"cupidatat\",\n    \"adipisicing\"\n  ],\n  \"id\": 19931111,\n  \"category\": {\n    \"id\": 528911,\n    \"name\": \"Excepteur minim\"\n  },\n  \"tags\": [\n    {\n      \"id\": -57400229,\n      \"name\": \"reprehenderit nisi irure ipsum\"\n    },\n    {\n      \"id\": -2935902,\n      \"name\": \"dolor Excepteur labore proident sint\"\n    }\n  ],\n  \"status\": \"available\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/pet",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"pet"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Invalid input",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"description": "Added as a part of security scheme: oauth2",
+												"key": "Authorization",
+												"value": "<token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/pet",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"pet"
+											]
+										}
+									},
+									"status": "Method Not Allowed",
+									"code": 405,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
 							"name": "Find pet by ID",
 							"event": [
 								{
@@ -37,6 +134,9 @@
 									}
 								}
 							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
 							"request": {
 								"auth": {
 									"type": "apikey",
@@ -65,14 +165,18 @@
 										"value": "application/json"
 									}
 								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
 								"url": {
-									"raw": "{{baseUrl}}/pet/19931111",
+									"raw": "{{baseUrl}}/pet/{{petNameId}}",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
 										"pet",
-										"19931111"
+										"{{petNameId}}"
 									]
 								},
 								"description": "Returns a single pet"
@@ -597,91 +701,6 @@
 									"body": "{\n  \"code\": 79199745,\n  \"type\": \"deserunt\",\n  \"message\": \"officia aute mollit\"\n}"
 								}
 							]
-						}
-					]
-				},
-				{
-					"name": "Add a new pet to the store",
-					"request": {
-						"auth": {
-							"type": "oauth2",
-							"oauth2": [
-								{
-									"key": "scope",
-									"value": "read:pets write:pets",
-									"type": "string"
-								},
-								{
-									"key": "authUrl",
-									"value": "https://petstore.swagger.io/oauth/authorize",
-									"type": "string"
-								},
-								{
-									"key": "grant_type",
-									"value": "implicit",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"name\": \"doggie\",\n  \"photoUrls\": [\n    \"cupidatat\",\n    \"adipisicing\"\n  ],\n  \"id\": -64979839,\n  \"category\": {\n    \"id\": 528911,\n    \"name\": \"Excepteur minim\"\n  },\n  \"tags\": [\n    {\n      \"id\": -57400229,\n      \"name\": \"reprehenderit nisi irure ipsum\"\n    },\n    {\n      \"id\": -2935902,\n      \"name\": \"dolor Excepteur labore proident sint\"\n    }\n  ],\n  \"status\": \"pending\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/pet",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"pet"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Invalid input",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"description": "Added as a part of security scheme: oauth2",
-										"key": "Authorization",
-										"value": "<token>"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/pet",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"pet"
-									]
-								}
-							},
-							"status": "Method Not Allowed",
-							"code": 405,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": ""
 						}
 					]
 				},
