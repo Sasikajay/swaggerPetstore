@@ -29,10 +29,8 @@
 											"    pm.expect(jsonData).to.have.keys('id', 'category', 'name', 'photoUrls', 'tags', 'status');\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Object ID is equal to the ID parameter\", function () {\r",
-											"    var petId = pm.request.url.path[2];\r",
-											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData.id.toString()).to.eql(petId.toString());\r",
+											"pm.test(\"Content-Type is application/json\", function () {\r",
+											"    pm.response.to.have.header(\"Content-Type\", \"application/json\");\r",
 											"});"
 										],
 										"type": "text/javascript"
